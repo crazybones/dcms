@@ -1,0 +1,1 @@
+it's not polite to stare
