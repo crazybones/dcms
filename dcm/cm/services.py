@@ -1,23 +1,18 @@
-from .processors import BashProcessor, JsonProcessor
+from .processors import get_container_data_as_list, execute_bash_command, get_json
 from .container import Container
 
 
 class ContainerServices:
-    __containers = []
-
-    def prepare_containers_info(self):
+    @staticmethod
+    def prepare_containers_info():
         bash_cmd = "curl --unix-socket /var/run/docker.sock http://localhost/containers/json"
-        containers_json = BashProcessor.execute(bash_cmd)
-        for elem in JsonProcessor.prepare_container_data(containers_json):
-            self.__containers.append(Container(elem))
-
-    def get_containers_info(self):
-        return self.__containers
+        containers_json = execute_bash_command(bash_cmd)
+        containers = []
+        containers += map(Container, get_container_data_as_list(containers_json))
+        return containers
 
     # temp, won't make it static
     def get_test_data(self):
-        j = JsonProcessor.prepare_container_data(JsonProcessor.get_json())
         test_data = []
-        for elem in j:
-            test_data.append(Container(elem))
+        test_data += map(Container, get_container_data_as_list(get_json()))
         return test_data
