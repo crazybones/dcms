@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
-from dcm.cm.serializers import ContainerSerializer
-from dcm.cm.services import ContainerServices
+from dcm import ContainerSerializer
+from dcm import ContainerServices
 
 
 class ContainerList(APIView):
