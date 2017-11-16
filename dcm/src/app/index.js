@@ -12,21 +12,21 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log(fetch("http://localhost:8000/dcm/api/list/"))
         fetch("http://localhost:8000/dcm/api/list/", {
-            mode: "no-cors",
             method: 'GET',
+            dataType: 'json',
             headers: {
-                Accept: 'application/json',
-            },
-        },)
-            .then(res => res.json())
-            .then(result =>
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response => {
                 this.setState({
                     isLoaded: true,
-                    containers: result.tag
-                })
-            )
+                    containers: response
+                });
+            })
             .catch(error =>
                 this.setState({
                     isLoaded: true,
@@ -36,21 +36,34 @@ class App extends React.Component {
     }
 
     render() {
-        const {error, isLoaded, containers} = this.state;
+        const {error, isLoaded} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading ...</div>;
         } else {
+            for (let container of this.state.containers) {
+                console.log(container)
+            }
+
+            const containers = this.state.containers.map((container) =>
+                <div key={container.container_id}>
+                    <p>container_id: {container.container_id}</p>
+                    <p>tag: {container.tag}</p>
+                    <p>image: {container.image}</p>
+                    <p>image_id: {container.image_id}</p>
+                    <p>command: {container.command}</p>
+                    <p>created: {container.created}</p>
+                    <p>status: {container.status}</p>
+                    <p>state: {container.state}</p>
+                    <p>ports: {container.ports}</p>
+                    <p>names: {container.names}</p>
+                    <p>ip: {container.ip}</p>
+                    <hr/>
+                </div >);
+
             return (
-                <ul>
-                    {containers}
-                    {/*{containers.map(item => (*/}
-                    {/*<li key={item.container_id}>*/}
-                    {/*{item.container_id} {item.status}*/}
-                    {/*</li>*/}
-                    {/*))}*/}
-                </ul>
+                <div>{containers}</div>
             );
         }
     }
