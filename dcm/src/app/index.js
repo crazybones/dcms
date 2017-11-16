@@ -42,10 +42,6 @@ class App extends React.Component {
         } else if (!isLoaded) {
             return <div>Loading ...</div>;
         } else {
-            for (let container of this.state.containers) {
-                console.log(container)
-            }
-
             const containers = this.state.containers.map((container) =>
                 <div key={container.container_id}>
                     <p>container_id: {container.container_id}</p>
