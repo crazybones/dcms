@@ -17,7 +17,8 @@ def get_container_data_as_list(jsn):
     for cont in json_list:
         inner_map = {'Id': cont['Id'], 'Image': cont['Image'], 'Command': cont['Command'],
                      'Created': datetime.datetime.fromtimestamp(cont['Created']).strftime('%Y-%m-%d %H:%M:%S'),
-                     'Status': cont['Status'], 'Ports': ';'.join(cont['Ports']), 'Names': ';'.join(cont['Names']),
+                     # 'Status': cont['Status'], 'Ports': ';'.join(cont['Ports']), 'Names': ';'.join(cont['Names']),
+                     'Status': 'mock', 'Ports': 'mock', 'Names': 'mock',
                      'ImageId': cont['ImageID'], 'Tag': ';'.join(cont['Labels']), 'State': cont['State'],
                      'IpAddress': cont['NetworkSettings']['Networks']['bridge']['IPAddress']}
         short_container_info.append(inner_map)
