@@ -13,6 +13,7 @@ class App extends React.Component {
 
     componentDidMount() {
         fetch("http://localhost:8000/dcm/api/list/", {
+            mode: 'no-cors',
             method: 'GET',
             dataType: 'json',
             headers: {

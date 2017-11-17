@@ -7,8 +7,7 @@ from dcm import ContainerServices
 
 class ContainerList(APIView):
     def get(self, request, format=None):
-        cs = ContainerServices()
-        data = cs.get_test_data()
+        data = ContainerServices.prepare_containers_info()
         result = ContainerSerializer(data, many=True).data
         return Response(result)
 

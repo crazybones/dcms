@@ -9,6 +9,8 @@ def execute_bash_command(bash_command):
     return output
 
 
+# err with status-ports-names
+#todo check & fix
 def get_container_data_as_list(jsn):
     short_container_info = []
     json_list = get_json_as_list(jsn)
@@ -23,10 +25,11 @@ def get_container_data_as_list(jsn):
 
 
 def get_json_as_list(jsn):
-    return json.loads(jsn)
+    return json.loads(jsn.decode())
 
 
 # temp as testing data
+#todo check
 def get_json():
     return '[{"Id":"b77ded706b470a4b36fa8647c4c74f2d63dccdeb404cca54f78015184eb0755d","Names":["/alp_jcb"],' \
            '"Image":"alp_jcb:latest",' \
